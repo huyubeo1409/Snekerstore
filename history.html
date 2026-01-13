@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>QUẢN LÝ ĐƠN HÀNG | HUY STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        :root { --primary: #e44d26; --dark: #1a1a1a; --light: #f4f7f6; --success: #27ae60; }
+        body { font-family: 'Oswald', sans-serif; background: var(--light); padding: 20px; }
+        .admin-box { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: var(--dark); color: white; padding: 25px; border-radius: 8px; border-left: 5px solid var(--primary); position: relative; }
+        .stat-card h3 { margin: 0; font-size: 14px; text-transform: uppercase; opacity: 0.7; }
+        .stat-card p { margin: 10px 0 0; font-size: 32px; color: var(--primary); font-weight: bold; }
+
+        /* Style cho từng nhóm ngày */
+        .day-group { margin-bottom: 40px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #fff; }
+        .day-header { background: #333; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .day-header h2 { margin: 0; font-size: 18px; letter-spacing: 1px; }
+        .day-total { color: #ffeb3b; font-weight: bold; font-size: 1.2rem; }
+
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th { background: #f8f9fa; color: #333; padding: 12px 15px; text-align: left; font-size: 13px; border-bottom: 2px solid #eee; }
+        td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: top; font-size: 14px; }
+        
+        .shift-badge { padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; color: white; margin-bottom: 5px; display: inline-block; }
+        .price-tag { color: var(--primary); font-weight: bold; }
+        .btn-delete { background: none; border: none; color: #ccc; cursor: pointer; font-size: 18px; transition: 0.3s; }
+        .btn-delete:hover { color: red; }
+        .empty-state { text-align: center; padding: 50px; color: #999; }
+    </style>
+</head>
+<body>
+    <div class="admin-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <div>
+                <h1 style="margin: 0; letter-spacing: 2px;">BÁO CÁO HỆ THỐNG HUY STORE</h1>
+                <p style="margin: 0; color: #888; font-size: 14px;">Dữ liệu doanh thu chia theo từng ngày</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="clearAllData()" style="background: #333; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 12px;">XÓA TẤT CẢ</button>
+                <a href="index.html" style="text-decoration: none; color: var(--dark); font-weight: bold; border: 2px solid var(--dark); padding: 8px 20px; border-radius: 5px;">← VỀ CỬA HÀNG</a>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="stat-card">
+                <h3>Tổng doanh thu (Mọi lúc)</h3>
+                <p id="totalRevenue">0₫</p>
+            </div>
+            <div class="stat-card">
+                <h3>Số đơn hàng</h3>
+                <p id="totalOrders">0</p>
+            </div>
+            <div class="stat-card" style="border-left-color: var(--success);">
+                <h3>Sản phẩm đã bán</h3>
+                <p id="totalItems" style="color: var(--success);">0</p>
+            </div>
+        </div>
+
+        <div id="historyContent">
+            </div>
+
+        <div id="emptyMessage" class="empty-state" style="display: none;">
+            <i class='bx bx-receipt' style="font-size: 50px;"></i>
+            <p>Chưa có giao dịch nào được ghi nhận.</p>
+        </div>
+    </div>
+
+    <script>
+        function renderAdmin() {
+            let orders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+            const container = document.getElementById('historyContent');
+            const emptyMessage = document.getElementById('emptyMessage');
+            
+            if (orders.length === 0) {
+                container.innerHTML = '';
+                emptyMessage.style.display = 'block';
+                updateStats(0, 0, 0);
+                return;
+            }
+            emptyMessage.style.display = 'none';
+
+            // 1. Tính toán thống kê tổng
+            let totalRev = 0;
+            let totalItm = 0;
+            orders.forEach(o => {
+                totalRev += parseInt(o.totalAmount.replace(/[^0-9]/g, '')) || 0;
+                if(o.items) o.items.forEach(i => totalItm += i.quantity);
+            });
+            updateStats(totalRev, orders.length, totalItm);
+
+            // 2. Nhóm đơn hàng theo ngày
+            const groups = orders.reduce((groups, order) => {
+                const date = order.date;
+                if (!groups[date]) groups[date] = [];
+                groups[date].push(order);
+                return groups;
+            }, {});
+
+            // 3. Sắp xếp ngày mới nhất lên đầu
+            const sortedDates = Object.keys(groups).sort((a, b) => {
+                return new Date(b.split('/').reverse().join('-')) - new Date(a.split('/').reverse().join('-'));
+            });
+
+            // 4. Hiển thị theo từng khối ngày
+            container.innerHTML = sortedDates.map(date => {
+                let dayTotal = 0;
+                const rows = groups[date].slice().reverse().map(order => {
+                    dayTotal += parseInt(order.totalAmount.replace(/[^0-9]/g, '')) || 0;
+                    const shiftColor = order.shift === "SÁNG" ? "#ffa000" : (order.shift === "CHIỀU" ? "#1976d2" : "#4527a0");
+                    
+                    return `
+                        <tr>
+                            <td style="width: 150px;">
+                                <strong>${order.time}</strong><br>
+                                <small style="color: #999;">ID: #${order.id}</small>
+                            </td>
+                            <td style="width: 200px;">
+                                <span class="shift-badge" style="background:${shiftColor}"> ${order.shift || '?' }</span><br>
+                                <strong>${(order.customer || 'Khách lẻ').toUpperCase()}</strong><br>
+                                <small>${order.phone || ''}</small>
+                            </td>
+                            <td>
+                                ${order.items ? order.items.map(i => `<div>• ${i.name} (x${i.quantity})</div>`).join('') : ''}
+                            </td>
+                            <td class="price-tag" style="width: 150px; text-align: right;">${order.totalAmount}</td>
+                            <td style="width: 50px; text-align: center;">
+                                <button class="btn-delete" onclick="deleteOrder(${order.id})">&times;</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                return `
+                    <div class="day-group">
+                        <div class="day-header">
+                            <h2>📅 NGÀY ${date}</h2>
+                            <span class="day-total">TỔNG: ${dayTotal.toLocaleString()}₫</span>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>THỜI GIAN</th>
+                                        <th>KHÁCH HÀNG</th>
+                                        <th>CHI TIẾT ĐƠN HÀNG</th>
+                                        <th style="text-align: right;">DOANH THU</th>
+                                        <th>XÓA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${rows}</tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStats(rev, count, items) {
+            document.getElementById('totalRevenue').innerText = rev.toLocaleString('vi-VN') + '₫';
+            document.getElementById('totalOrders').innerText = count;
+            document.getElementById('totalItems').innerText = items;
+        }
+
+        function deleteOrder(id) {
+            if(confirm('Xóa đơn hàng này?')) {
+                let orders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+                orders = orders.filter(o => o.id !== id);
+                localStorage.setItem('orderHistory', JSON.stringify(orders));
+                renderAdmin();
+            }
+        }
+
+        function clearAllData() {
+            if(confirm('CẢNH BÁO: Xóa sạch toàn bộ lịch sử doanh thu?')) {
+                localStorage.removeItem('orderHistory');
+                renderAdmin();
+            }
+        }
+
+        window.onload = renderAdmin;
+    </script>
+</body>
+</html>

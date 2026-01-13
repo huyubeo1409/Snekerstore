@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HỆ THỐNG NHÂN VIÊN | HUY STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        :root { --primary: #e44d26; --dark: #1a1a1a; }
+        body { font-family: 'Oswald', sans-serif; background: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 100%; max-width: 350px; text-align: center; }
+        .logo { font-size: 2rem; font-weight: bold; margin-bottom: 5px; color: var(--dark); }
+        .tab-menu { display: flex; justify-content: space-around; margin-bottom: 25px; border-bottom: 1px solid #eee; }
+        .tab-btn { background: none; border: none; font-family: 'Oswald'; padding: 10px; cursor: pointer; color: #888; transition: 0.3s; }
+        .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); font-weight: bold; }
+        .form-group { text-align: left; margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 11px; margin-bottom: 5px; color: #888; text-transform: uppercase; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-family: 'Oswald'; }
+        .btn-submit { width: 100%; padding: 14px; background: var(--dark); color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; margin-top: 10px; }
+        .btn-submit:hover { background: var(--primary); }
+        .back-link { display: block; margin-top: 20px; color: #aaa; text-decoration: none; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="logo">HUY STORE®</div>
+        <div class="tab-menu">
+            <button class="tab-btn active" onclick="switchTab('login')">ĐĂNG NHẬP</button>
+            <button class="tab-btn" onclick="switchTab('register')">ĐĂNG KÝ NV</button>
+        </div>
+
+        <div id="loginSection">
+            <div class="form-group">
+                <label>Tài khoản nhân viên</label>
+                <input type="text" id="userLogin" placeholder="Tên đăng nhập...">
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                <input type="password" id="passLogin" placeholder="••••••••">
+            </div>
+            <button class="btn-submit" onclick="handleLogin()">VÀO CA LÀM VIỆC</button>
+        </div>
+
+        <div id="registerSection" style="display: none;">
+            <div class="form-group">
+                <label>Tên nhân viên mới</label>
+                <input type="text" id="newName" placeholder="Họ và tên...">
+            </div>
+            <div class="form-group">
+                <label>Tên tài khoản</label>
+                <input type="text" id="newUser" placeholder="Ví dụ: nhanvien01">
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                <input type="password" id="newPass" placeholder="Tự chọn mật khẩu">
+            </div>
+            <button class="btn-submit" onclick="handleRegister()" style="background: var(--primary);">GỬI YÊU CẦU ĐĂNG KÝ</button>
+        </div>
+
+        <a href="index.html" class="back-link">← Quay về trang bán hàng</a>
+    </div>
+
+    <script>
+        function switchTab(type) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
+            if(type === 'login') {
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('registerSection').style.display = 'none';
+                tabs[0].classList.add('active');
+            } else {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('registerSection').style.display = 'block';
+                tabs[1].classList.add('active');
+            }
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('newName').value;
+            const user = document.getElementById('newUser').value;
+            const pass = document.getElementById('newPass').value;
+            if(!name || !user || !pass) return swal("Lỗi!", "Vui lòng điền đủ thông tin!", "error");
+
+            let staffList = JSON.parse(localStorage.getItem('staffAccounts')) || [];
+            if(staffList.find(s => s.user === user)) return swal("Lỗi!", "Tài khoản đã tồn tại!", "error");
+
+            staffList.push({ name, user, pass });
+            localStorage.setItem('staffAccounts', JSON.stringify(staffList));
+            swal("Thành công!", "Đã tạo tài khoản cho " + name, "success").then(() => switchTab('login'));
+        }
+
+        function handleLogin() {
+            const user = document.getElementById('userLogin').value;
+            const pass = document.getElementById('passLogin').value;
+
+            // 1. Nếu là Admin (Huy)
+            if(user === "huyadmin" && pass === "huy123") {
+                localStorage.setItem('currentUser', "Sếp Huy Mập"); 
+                return swal("Chào Sếp Huy!", "Đang quay lại trang chủ...", "success")
+                .then(() => window.location.href = 'index.html');
+            }
+
+            // 2. Nếu là Nhân viên
+            let staffList = JSON.parse(localStorage.getItem('staffAccounts')) || [];
+            const foundStaff = staffList.find(s => s.user === user && s.pass === pass);
+
+            if(foundStaff) {
+                localStorage.setItem('currentUser', foundStaff.name); 
+                swal("Đăng nhập thành công!", "Chào " + foundStaff.name, "success")
+                .then(() => window.location.href = 'index.html');
+            } else {
+                swal("Thất bại!", "Sai tài khoản hoặc mật khẩu!", "error");
+            }
+        }
+    </script>
+</body>
+</html>
