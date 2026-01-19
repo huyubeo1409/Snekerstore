@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .product-detail img {
+            width: 100%;
+            border-radius: 20px;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .price {
+            font-size: 22px;
+            color: red;
+            font-weight: bold;
+        }
+
+        .sizes button {
+            padding: 8px 14px;
+            margin: 5px;
+            border-radius: 8px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        .buy {
+            margin-top: 20px;
+            padding: 14px 30px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>CHI TIẾT SẢN PHẨM</h2>
+
+<div class="product-detail">
+    <img id="productImg">
+
+    <div>
+        <h3 id="productName"></h3>
+        <p id="productDesc"></p>
+        <p class="price" id="productPrice"></p>
+
+        <h4>Chọn size:</h4>
+        <div class="sizes">
+            <button>39</button>
+            <button>40</button>
+            <button>41</button>
+            <button>42</button>
+            <button>43</button>
+        </div>
+
+        <button class="buy">THÊM VÀO GIỎ HÀNG</button>
+    </div>
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+
+    document.getElementById("productName").innerText = params.get("name");
+    document.getElementById("productDesc").innerText = params.get("desc");
+    document.getElementById("productImg").src = params.get("img");
+
+    const price = params.get("price");
+    document.getElementById("productPrice").innerText =
+        Number(price).toLocaleString("vi-VN") + "đ";
+</script>
+
+</body>
+</html>
