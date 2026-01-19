@@ -59,32 +59,77 @@
             <div class="cat-label">NIKE</div>
         </div>
         <div class="cat-item filter-btn" data-category="phukien" style="cursor: pointer;">
-            <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?q=80&w=2070" alt="Phụ kiện">
+            <img src="https://product.hstatic.net/1000061481/product/nms04292_6ceb3839d1844c05a2d799e54b30c915.jpg" alt="Phụ kiện">
             <div class="cat-label">PHỤ KIỆN</div>
         </div>
     </section>
 
-    <section class="product-section container">
-        <div class="section-header">
-            <h2 style="margin-bottom: 30px; letter-spacing: 2px;">SẢN PHẨM MỚI NHẤT</h2>
-        </div>
-        <div class="product-grid" id="productGrid">
-            </div>
-    </section>
+        <section class="brand-showcase">
+            <div class="brand-wrapper">
 
-    <section class="brand-intro-section">
-        <div class="intro-box">
-            <h2 class="intro-heading">CÂU CHUYỆN CỦA CHÚNG TÔI</h2>
-            <div class="intro-text">
-                <p>Từ sân vận động đến đường phố. Với bề dày lịch sử hàng thập kỷ, HUY MẬP STORE không chỉ bán giày, chúng tôi mang đến phong cách sống.</p>
+                <!-- ADIDAS -->
+                <div class="brand-card">
+                    <img src="https://images.unsplash.com/photo-1694863545989-661486a083b7?q=80&w=600"
+                        alt="Adidas">
+                    <h3>ADIDAS</h3>
+                    <p>
+                        Thương hiệu thể thao đến từ Đức, nổi tiếng với công nghệ BOOST êm ái,
+                        thiết kế thời trang phù hợp cho tập luyện và sử dụng hằng ngày.
+                    </p>
+                    <a href="adidas.html" class="brand-btn">KHÁM PHÁ ADIDAS</a>
+                </div>
+
+            <!-- NIKE -->
+            <div class="brand-banner">
+                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=1200"
+                    alt="Nike">
+                <div class="banner-text">
+                    <h3>NIKE</h3>
+                    <p>
+                        Biểu tượng thể thao toàn cầu với Air Jordan, Air Max, Dunk –
+                        phong cách mạnh mẽ và cá tính.
+                    </p>
+                    <a href="nike.html" class="brand-btn dark">KHÁM PHÁ NIKE</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <section class="store-address-section">
+        <div class="store-address-box">
+            <h2 class="store-address-title">HỆ THỐNG CỬA HÀNG</h2>
+
+            <div class="store-address-content">
+                <div class="store-info">
+                    <h3>HUY MẬP STORE®</h3>
+                    <p>
+                        141 Tôn Đức Thắng,<br>
+                        Phường Bình Thuận,<br>
+                        Tỉnh Lâm Đồng<br>
+                        Số điện thoại: 0825171735
+                    </p>
+                    <div class="store-tags">
+                        <span>ADIDAS</span>
+                        <span>NIKE</span>
+                        <span>PHỤ KIỆN</span>
+                    </div>
+                </div>
+                <div class="store-map">
+                  <iframe
+                    src="https://www.google.com/maps?q=141%20T%C3%B4n%20%C4%90%E1%BB%A9c%20Th%E1%BA%AFng%2C%20B%C3%ACnh%20Thu%E1%BA%ADn%2C%20L%C3%A2m%20%C4%90%E1%BB%93ng&z=17&output=embed"
+                    width="100%"
+                    height="280"
+                    style="border:0;"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                  </iframe>
+                </div>
             </div>
         </div>
     </section>
-
     <div class="cart-sidebar" id="cart-sidebar">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h2 class="cart-title">GIỎ HÀNG</h2>
-            <i class="bx bx-x" id="close-cart" style="font-size: 2rem; cursor: pointer;"></i>
+            <i class="bx bx-x" id="close-cart" onclick="closeCart()"></i>
         </div>
         
         <div class="cart-content" id="cartItems">
@@ -173,15 +218,15 @@
         window.location.reload();
     }
 
-    function openCart() {
-        document.getElementById('cart-sidebar').classList.add('active');
-        document.getElementById('overlay').classList.add('active');
-    }
+function openCart() {
+    document.getElementById('cart-sidebar').classList.add('active');
+    document.getElementById('overlay').classList.add('active');
+}
 
-    function closeCart() {
-        document.getElementById('cart-sidebar').classList.remove('active');
-        document.getElementById('overlay').classList.remove('active');
-    }
+function closeCart() {
+    document.getElementById('cart-sidebar').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
+}
     </script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

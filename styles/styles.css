@@ -323,3 +323,298 @@ input, textarea {
     transform: scale(1.05);
     color: #fff;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    border-bottom: 1px solid #eee;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.icons i {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+/* Hero Banner */
+.hero {
+    height: 60vh;
+    background: url('https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/if_w_gt_1920,w_1920/enVN/Images/ss24-samba-gazelle-spezial-global-launch-hp-mh-large-d_tcm212-1135255.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.btn-shop {
+    padding: 12px 25px;
+    background: white;
+    border: none;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* Grid Sản phẩm */
+.products {
+    padding: 50px 5%;
+}
+
+.products h2 {
+    margin-bottom: 30px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    border: 1px solid transparent;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card:hover {
+    border: 1px solid #ddd;
+}
+
+.card img {
+    width: 100%;
+}
+
+.card-info {
+    padding: 15px;
+}
+
+.price {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+/* ===============================
+   ĐỊA CHỈ CỬA HÀNG
+================================ */
+
+.store-address-section {
+    background: #000;
+    padding: 80px 20px;
+    color: #fff;
+}
+
+.store-address-box {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.store-address-title {
+    text-align: center;
+    font-size: 28px;
+    letter-spacing: 3px;
+    margin-bottom: 50px;
+}
+
+.store-address-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.store-info h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.store-info p {
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.store-tags span {
+    display: inline-block;
+    border: 1px solid #fff;
+    padding: 6px 14px;
+    margin-right: 10px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* ✅ MAP CÓ MÀU – HIỆN VỊ TRÍ */
+.store-map iframe {
+    width: 100%;
+    height: 280px;
+    border: none;
+    filter: none !important; /* QUAN TRỌNG */
+    border-radius: 6px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .store-address-content {
+        grid-template-columns: 1fr;
+    }
+
+    .store-map iframe {
+        height: 250px;
+    }
+}
+/* ===== BRAND SHOWCASE ===== */
+.brand-showcase {
+    padding: 90px 80px;
+    background: #f9f9f9;
+}
+
+.brand-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.brand-header h2 {
+    font-size: 30px;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.brand-header p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* SECTION */
+.brand-section {
+    padding: 60px 8%;
+    background: #f8f9fa;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+/* WRAPPER */
+.brand-wrapper {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 40px;
+    min-height: 520px;
+}
+
+/* ADIDAS CARD */
+.brand-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brand-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.brand-card h3 {
+    margin-top: 20px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.brand-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* NIKE BANNER */
+.brand-banner {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.brand-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* TEXT */
+.banner-text {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: #fff;
+    max-width: 60%;
+}
+
+.banner-text h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.banner-text p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* BUTTON */
+.brand-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 22px;
+    background: #000;
+    color: #fff;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.brand-btn.dark {
+    background: #111;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .brand-wrapper {
+        grid-template-columns: 1fr;
+    }
+}

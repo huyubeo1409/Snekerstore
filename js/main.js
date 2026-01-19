@@ -156,8 +156,6 @@ function closeAllModals() {
             checkoutForm.reset();
         });
     }
-
-    if (typeof products !== 'undefined') displayProducts(products);
     updateCartUI();
 ;
 
@@ -167,15 +165,21 @@ function saveCart() {
 }
 
 function openCart() {
-    closeAllModals();
-    const cartSidebar = document.getElementById('cart-sidebar');
-    const overlay = document.getElementById('overla');
-    if (cartSidebar && overlay) {
-        cartSidebar.classList.add('active');
-        overlay.classList.add('active');
-        updateCartUI();
-    }
+    const cart = document.getElementById("cart-sidebar");
+    const overlay = document.getElementById("overlay");
+
+    if (cart) cart.classList.add("active");
+    if (overlay) overlay.classList.add("active");
 }
+
+function closeCart() {
+    const cart = document.getElementById("cart-sidebar");
+    const overlay = document.getElementById("overlay");
+
+    if (cart) cart.classList.remove("active");
+    if (overlay) overlay.classList.remove("active");
+}
+
 
 function addToCart(id) {
     const product = products.find(p => p.id === id);
@@ -399,22 +403,41 @@ function showHuyStoreInvoice(order) {
     }
 }
 // Tìm đoạn cuối cùng trong file main.js của bạn và thay thế bằng đoạn này:
+;
+document.addEventListener("DOMContentLoaded", () => {
+    if (typeof products === "undefined") return;
 
-document.addEventListener('DOMContentLoaded', () => {
-    // ... các code khác giữ nguyên ...
+    const productGrid = document.getElementById("productGrid");
+    if (!productGrid) return;
 
-    // Kiểm tra tên file đang mở để tự chạy sản phẩm tương ứng
-    const currentPage = window.location.pathname.split("/").pop();
+    const page = window.location.pathname.toLowerCase();
 
-    if (currentPage === "adidas.html") {
-        displayProducts("adidas"); // Chỉ hiện adidas
-    } else if (currentPage === "nike.html") {
-        displayProducts("nike");   // Chỉ hiện nike
-    } else if (currentPage === "phukien.html") {
-        displayProducts("phukien"); // Chỉ hiện phụ kiện
-    } else {
-        displayProducts("all");     // Trang chủ hiện hết
-    }
-    
+    let category = "all";
+    if (page.includes("adidas")) category = "adidas";
+    else if (page.includes("nike")) category = "nike";
+    else if (page.includes("phukien")) category = "phukien";
+
+    // lọc đúng sản phẩm
+    const filteredProducts = category === "all"
+        ? products
+        : products.filter(p => p.category.toLowerCase() === category);
+
+    // render
+    productGrid.innerHTML = filteredProducts.map(product => `
+        <div class="product-card">
+            <div class="product-img">
+                <img src="${product.image}" alt="${product.name}">
+                <button class="quick-add" onclick="addToCart(${product.id})">
+                    THÊM VÀO GIỎ +
+                </button>
+            </div>
+            <div class="product-info">
+                <p class="category-name">${product.category.toUpperCase()}</p>
+                <h3>${product.name}</h3>
+                <p class="price">${product.price.toLocaleString('vi-VN')}₫</p>
+            </div>
+        </div>
+    `).join("");
+
     updateCartUI();
 });
