@@ -1,557 +1,652 @@
 /* --- BIẾN VÀ THIẾT LẬP CHUNG --- */
 :root {
-    --black: #000000;
-    --white: #ffffff;
-    --gray: #767677;
-    --light-gray: #eceff1;
-    --accent: #3b82f6;
+  --black: #000000;
+  --white: #ffffff;
+  --gray: #767677;
+  --light-gray: #eceff1;
+  --accent: #3b82f6;
 }
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    font-family: 'Oswald', sans-serif;
-    text-transform: uppercase;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
 }
 
-body { 
-    background-color: var(--white); 
-    color: var(--black);
-    overflow-x: hidden;
+body {
+  background-color: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
 }
 
 /* --- NAVBAR --- */
 .navbar {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    padding: 15px 5%; 
-    background: #fff;
-    position: sticky; 
-    top: 0; 
-    z-index: 1000;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #eee;
 }
 
-.logo { font-size: 1.8rem; font-weight: 700; letter-spacing: 1px; }
-
-.nav-links { list-style: none; display: flex; gap: 25px; }
-
-.nav-links a { 
-    text-decoration: none; 
-    color: var(--black); 
-    font-weight: 500; 
-    font-size: 14px; 
-    transition: 0.2s;
-    padding-bottom: 5px;
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.nav-links a:hover, .nav-links a.active { 
-    border-bottom: 2px solid #000;
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
 }
 
-.header-right { display: flex; align-items: center; gap: 1.2rem; }
-
-.search-bar input { 
-    background: #f3f4f6;
-    border: none;
-    padding: 8px 15px;
-    outline: none;
-    width: 180px;
+.nav-links a {
+  text-decoration: none;
+  color: var(--black);
+  font-weight: 500;
+  font-size: 14px;
+  transition: 0.2s;
+  padding-bottom: 5px;
 }
 
-.cart-icon { position: relative; font-size: 1.5rem; cursor: pointer; }
+.nav-links a:hover,
+.nav-links a.active {
+  border-bottom: 2px solid #000;
+}
 
-#cart-count { 
-    position: absolute; 
-    top: -5px; 
-    right: -10px; 
-    background: var(--black);
-    color: white; 
-    font-size: 10px; 
-    padding: 2px 6px; 
-    border-radius: 50%;
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.search-bar input {
+  background: #f3f4f6;
+  border: none;
+  padding: 8px 15px;
+  outline: none;
+  width: 180px;
+}
+
+.cart-icon {
+  position: relative;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: var(--black);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
 }
 
 /* --- HERO SECTION --- */
 .hero-section {
-    height: 70vh;
-    background: linear-gradient(to right, rgba(0,0,0,0.6), transparent), 
-                url('https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=2070') center/cover;
-    display: flex; 
-    align-items: center; 
-    padding: 0 8%;
+  height: 70vh;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.6), transparent),
+    url("https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=2070")
+      center/cover;
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
 }
 
 .hero-content h1 {
-    font-size: 4.5rem; 
-    color: #fff; 
-    line-height: 1; 
-    margin-bottom: 20px;
+  font-size: 4.5rem;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 20px;
 }
 
 /* --- CATEGORIES --- */
 .categories {
-    display: flex; 
-    height: 350px; 
-    gap: 10px; 
-    padding: 20px 5%;
+  display: flex;
+  height: 350px;
+  gap: 10px;
+  padding: 20px 5%;
 }
 
-.cat-item { flex: 1; position: relative; overflow: hidden; cursor: pointer; }
+.cat-item {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
 
-.cat-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.cat-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+}
 
-.cat-item:hover img { transform: scale(1.05); }
+.cat-item:hover img {
+  transform: scale(1.05);
+}
 
 .cat-label {
-    position: absolute; 
-    bottom: 20px; 
-    left: 20px;
-    background: #fff; 
-    padding: 8px 20px; 
-    font-weight: 700;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: #fff;
+  padding: 8px 20px;
+  font-weight: 700;
 }
 
 /* --- PRODUCT GRID --- */
-.product-section { padding: 40px 5%; }
-
-.product-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-    gap: 20px;
-    transition: opacity 0.3s ease;
+.product-section {
+  padding: 40px 5%;
 }
 
-.product-card { background: var(--white); transition: 0.3s; }
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  transition: opacity 0.3s ease;
+}
 
-.product-img { background: #f5f5f5; position: relative; overflow: hidden; }
+.product-card {
+  background: var(--white);
+  transition: 0.3s;
+}
 
-.product-img img { width: 100%; display: block; }
+.product-img {
+  background: #f5f5f5;
+  position: relative;
+  overflow: hidden;
+  max-height: 250px;
+  border-bottom: 1px solid #ccc;
+}
+
+.product-img img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 
 .quick-add {
-    position: absolute; 
-    bottom: 0; width: 100%; 
-    background: #000; color: #fff;
-    border: none; padding: 12px; 
-    font-weight: 700; 
-    transform: translateY(100%);
-    transition: 0.3s;
-    cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-weight: 700;
+  transform: translateY(100%);
+  transition: 0.3s;
+  cursor: pointer;
 }
 
-.product-card:hover .quick-add { transform: translateY(0); }
+.product-card:hover .quick-add {
+  transform: translateY(0);
+}
 
-.product-info { padding: 15px 0; }
-.product-info h3 { font-size: 15px; margin-bottom: 5px; }
-.price { font-weight: 700; }
+.product-info {
+  padding: 15px 0;
+}
+.product-info h3 {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.price {
+  font-weight: 700;
+}
 
 /* --- BRAND INTRO --- */
 .brand-intro-section {
-    background-color: #000;
-    color: #fff;
-    padding: 80px 20px;
-    text-align: center;
+  background-color: #000;
+  color: #fff;
+  padding: 80px 20px;
+  text-align: center;
 }
 
-.intro-box { max-width: 800px; margin: 0 auto; }
+.intro-box {
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-.intro-heading { font-size: 2rem; margin-bottom: 20px; }
+.intro-heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
 
 .intro-text p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #ccc;
-    text-transform: none;
-    margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ccc;
+  text-transform: none;
+  margin-bottom: 15px;
 }
 
 /* --- HỆ THỐNG MODAL (QUAN TRỌNG ĐỂ HIỆN BILL) --- */
 .overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
-    z-index: 1500;
-    display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1500;
+  display: none;
 }
 
-.overlay.active { display: block; }
+.overlay.active {
+  display: block;
+}
 
 /* Modal chung cho Thanh toán, Lịch sử, Hóa đơn */
 .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    background: #fff;
-    z-index: 2000;
-    width: 90%;
-    max-width: 450px;
-    padding: 30px;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.3s ease;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: #fff;
+  z-index: 2000;
+  width: 90%;
+  max-width: 450px;
+  padding: 30px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
 .modal.active {
-    visibility: visible;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-content h3 { margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+.modal-content h3 {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+}
 
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    outline: none;
-    text-transform: none; /* Khách nhập tên thì để chữ thường */
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  outline: none;
+  text-transform: none; /* Khách nhập tên thì để chữ thường */
 }
 
 /* --- GIỎ HÀNG SIDEBAR --- */
 .cart-sidebar {
-    position: fixed;
-    top: 0; right: -420px;
-    width: 400px; height: 100%;
-    background: #fff;
-    z-index: 1600;
-    transition: 0.4s ease;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #fff;
+  z-index: 1600;
+  transition: 0.4s ease;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
-.cart-sidebar.active { right: 0; }
+.cart-sidebar.active {
+  right: 0;
+}
 
-.cart-content { flex: 1; overflow-y: auto; }
+.cart-content {
+  flex: 1;
+  overflow-y: auto;
+}
 
-.total { margin-top: auto; padding-top: 20px; border-top: 1px solid #eee; }
+.total {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
 
 /* --- NÚT BẤM --- */
-.btn-primary, .checkout-btn, .btn-confirm {
-    background: #000;
-    color: #fff;
-    border: none;
-    padding: 15px;
-    width: 100%;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 10px;
+.btn-primary,
+.checkout-btn,
+.btn-confirm {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
 }
 
-.btn-primary:hover { background: #333; }
+.btn-primary:hover {
+  background: #333;
+}
 
 .view-history-btn {
-    position: fixed;
-    bottom: 20px; left: 20px;
-    background: #000; color: #fff;
-    padding: 12px 20px;
-    border: none; border-radius: 50px;
-    cursor: pointer; z-index: 1000;
-    display: flex; align-items: center; gap: 10px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #000;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* --- GIAO DIỆN BILL (HÓA ĐƠN) --- */
 #invoiceDetails {
-    text-transform: none; /* Để thông tin khách hàng dễ đọc */
-}/* Thiết kế Hóa đơn Huy Store */
+  text-transform: none; /* Để thông tin khách hàng dễ đọc */
+} /* Thiết kế Hóa đơn Huy Store */
 .bill-container {
-    background: #fff;
-    padding: 20px;
-    font-family: 'Courier New', Courier, monospace; /* Font chữ máy in hóa đơn */
-    color: #000;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-width: 350px;
-    margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  font-family: "Courier New", Courier, monospace; /* Font chữ máy in hóa đơn */
+  color: #000;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  margin: 0 auto;
 }
 
 .bill-header {
-    text-align: center;
-    border-bottom: 1px dashed #000;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+  text-align: center;
+  border-bottom: 1px dashed #000;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .bill-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-    font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 14px;
 }
 
 .bill-footer {
-    border-top: 1px dashed #000;
-    margin-top: 10px;
-    padding-top: 10px;
-    text-align: center;
+  border-top: 1px dashed #000;
+  margin-top: 10px;
+  padding-top: 10px;
+  text-align: center;
 }
 
 .total-bill {
-    font-size: 18px;
-    font-weight: bold;
-    color: #e44d26;
-}/* Style cho nút Quản trị doanh thu */
+  font-size: 18px;
+  font-weight: bold;
+  color: #e44d26;
+} /* Style cho nút Quản trị doanh thu */
 .admin-fixed-btn {
-    position: fixed;
-    bottom: 85px; /* Nằm trên nút Lịch sử đơn hàng một chút */
-    left: 20px;
-    background: #000; /* Màu đen sang trọng */
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 50px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    z-index: 1000;
-    transition: 0.3s;
-    border: 2px solid #fff;
+  position: fixed;
+  bottom: 85px; /* Nằm trên nút Lịch sử đơn hàng một chút */
+  left: 20px;
+  background: #000; /* Màu đen sang trọng */
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Oswald", sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: 0.3s;
+  border: 2px solid #fff;
 }
 
 .admin-fixed-btn:hover {
-    background: #e44d26; /* Đổi màu cam khi rê chuột vào */
-    transform: scale(1.05);
-    color: #fff;
+  background: #e44d26; /* Đổi màu cam khi rê chuột vào */
+  transform: scale(1.05);
+  color: #fff;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  border-bottom: 1px solid #eee;
 }
 
 nav ul {
-    display: flex;
-    list-style: none;
+  display: flex;
+  list-style: none;
 }
 
 nav ul li {
-    margin: 0 15px;
+  margin: 0 15px;
 }
 
 nav ul li a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    font-size: 14px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .icons i {
-    margin-left: 20px;
-    cursor: pointer;
+  margin-left: 20px;
+  cursor: pointer;
 }
 
 /* Hero Banner */
 .hero {
-    height: 60vh;
-    background: url('https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/if_w_gt_1920,w_1920/enVN/Images/ss24-samba-gazelle-spezial-global-launch-hp-mh-large-d_tcm212-1135255.jpg') no-repeat center center/cover;
-    display: flex;
-    align-items: center;
-    padding-left: 5%;
-    color: white;
+  height: 60vh;
+  background: url("https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/if_w_gt_1920,w_1920/enVN/Images/ss24-samba-gazelle-spezial-global-launch-hp-mh-large-d_tcm212-1135255.jpg")
+    no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  color: white;
 }
 
 .hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+  font-size: 3rem;
+  margin-bottom: 10px;
 }
 
 .btn-shop {
-    padding: 12px 25px;
-    background: white;
-    border: none;
-    font-weight: bold;
-    margin-top: 20px;
-    cursor: pointer;
+  padding: 12px 25px;
+  background: white;
+  border: none;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
 /* Grid Sản phẩm */
 .products {
-    padding: 50px 5%;
+  padding: 50px 5%;
 }
 
 .products h2 {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .card {
-    border: 1px solid transparent;
-    transition: 0.3s;
-    cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .card:hover {
-    border: 1px solid #ddd;
+  border: 1px solid #ddd;
 }
 
 .card img {
-    width: 100%;
+  width: 100%;
 }
 
 .card-info {
-    padding: 15px;
+  padding: 15px;
 }
 
 .price {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
 }
 /* ===============================
    ĐỊA CHỈ CỬA HÀNG
 ================================ */
 
 .store-address-section {
-    background: #000;
-    padding: 80px 20px;
-    color: #fff;
+  background: #000;
+  padding: 80px 20px;
+  color: #fff;
 }
 
 .store-address-box {
-    max-width: 1200px;
-    margin: auto;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .store-address-title {
-    text-align: center;
-    font-size: 28px;
-    letter-spacing: 3px;
-    margin-bottom: 50px;
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: 3px;
+  margin-bottom: 50px;
 }
 
 .store-address-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
 }
 
 .store-info h3 {
-    font-size: 22px;
-    margin-bottom: 15px;
+  font-size: 22px;
+  margin-bottom: 15px;
 }
 
 .store-info p {
-    line-height: 1.8;
-    color: #ccc;
-    margin-bottom: 20px;
+  line-height: 1.8;
+  color: #ccc;
+  margin-bottom: 20px;
 }
 
 .store-tags span {
-    display: inline-block;
-    border: 1px solid #fff;
-    padding: 6px 14px;
-    margin-right: 10px;
-    font-size: 12px;
-    letter-spacing: 1px;
+  display: inline-block;
+  border: 1px solid #fff;
+  padding: 6px 14px;
+  margin-right: 10px;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
 
 /* ✅ MAP CÓ MÀU – HIỆN VỊ TRÍ */
 .store-map iframe {
-    width: 100%;
-    height: 280px;
-    border: none;
-    filter: none !important; /* QUAN TRỌNG */
-    border-radius: 6px;
+  width: 100%;
+  height: 280px;
+  border: none;
+  filter: none !important; /* QUAN TRỌNG */
+  border-radius: 6px;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
-    .store-address-content {
-        grid-template-columns: 1fr;
-    }
+  .store-address-content {
+    grid-template-columns: 1fr;
+  }
 
-    .store-map iframe {
-        height: 250px;
-    }
+  .store-map iframe {
+    height: 250px;
+  }
 }
 /* ===== BRAND SHOWCASE ===== */
 .brand-showcase {
-    padding: 90px 80px;
-    background: #f9f9f9;
+  padding: 90px 80px;
+  background: #f9f9f9;
 }
 
 .brand-header {
-    text-align: center;
-    margin-bottom: 60px;
+  text-align: center;
+  margin-bottom: 60px;
 }
 
 .brand-header h2 {
-    font-size: 30px;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
+  font-size: 30px;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
 }
 
 .brand-header p {
-    font-size: 16px;
-    color: #666;
+  font-size: 16px;
+  color: #666;
 }
 
 /* SECTION */
 .brand-section {
-    padding: 60px 8%;
-    background: #f8f9fa;
+  padding: 60px 8%;
+  background: #f8f9fa;
 }
 
 .section-title {
-    text-align: center;
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 50px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 50px;
 }
 
 /* WRAPPER */
 .brand-wrapper {
-    display: grid;
-    grid-template-columns: 340px 1fr;
-    gap: 40px;
-    min-height: 520px;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 40px;
+  min-height: 520px;
 }
 
 /* WRAPPER */
 .brand-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 40px;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  align-items: stretch;
 }
 
 .buy-btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background: #000;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 20px;
-    font-weight: bold;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
 .buy-btn:hover {
-    background: #333;
+  background: #333;
 }

@@ -1,121 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-<meta charset="UTF-8">
-<title>ADIDAS | HUY MẬP STORE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ADIDAS | HUY MẬP STORE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
 
-<style>
-body { font-family: Arial; margin:0 }
-.navbar { padding:20px; font-weight:bold; }
-.product-grid {
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:20px;
-}
-.product-card {
-    border:1px solid #ddd;
-    padding:15px;
-    text-align:center;
-}
-.product-card img { width:100%; cursor:pointer }
-.price { font-weight:bold; margin:10px 0 }
-button {
-    padding:8px 14px;
-    background:black;
-    color:white;
-    border:none;
-    cursor:pointer;
-}
+  <body data-category="adidas">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="logo">HUY MẬP STORE®</div>
+    </nav>
 
-/* ====== TRANG CHI TIẾT (ẨN) ====== */
-#detailPage {
-    display:none;
-    padding:40px;
-}
-.detail-box {
-    display:flex;
-    gap:40px;
-}
-.detail-box img { width:400px }
-</style>
-</head>
+    <!-- NỘI DUNG -->
+    <section class="product-section container">
+      <div class="section-header">
+        <h2>GIÀY THƯƠNG HIỆU ADIDAS</h2>
+      </div>
 
-<body data-category="adidas">
+      <!-- GRID SẢN PHẨM -->
+      <div class="product-grid" id="productGrid"></div>
 
-<nav class="navbar">HUY MẬP STORE®</nav>
+      <!-- QUAY VỀ -->
+      <div style="text-align: center; margin-top: 40px">
+        <a href="index.html" class="btn-primary">⬅ QUAY VỀ TRANG CHỦ</a>
+      </div>
+    </section>
 
-<!-- ====== DANH SÁCH ====== -->
-<section id="listPage">
-    <h2>GIÀY ADIDAS</h2>
-    <div class="product-grid" id="productGrid"></div>
-</section>
-
-<!-- ====== CHI TIẾT ====== -->
-<section id="detailPage">
-    <button onclick="backToList()">⬅ Quay lại</button>
-    <div class="detail-box" id="detail"></div>
-</section>
-
-<script src="./js/products.js"></script>
-
-<script>
-// ====== RENDER DANH SÁCH ======
-const grid = document.getElementById("productGrid");
-const category = document.body.dataset.category;
-
-products
-.filter(p => p.category === category)
-.forEach(p => {
-    grid.innerHTML += `
-    <div class="product-card">
-        <img src="${p.image}" onclick="showDetail(${p.id})">
-        <h4>${p.name}</h4>
-        <p class="price">${p.price.toLocaleString()}₫</p>
-        <button onclick="addToCart(${p.id})">THÊM GIỎ</button>
-    </div>`;
-});
-
-// ====== CHI TIẾT ======
-function showDetail(id){
-    const p = products.find(x => x.id === id);
-
-    document.getElementById("listPage").style.display="none";
-    document.getElementById("detailPage").style.display="block";
-
-    document.getElementById("detail").innerHTML = `
-        <img src="${p.image}">
-        <div>
-            <h1>${p.name}</h1>
-            <p class="price">${p.price.toLocaleString()}₫</p>
-
-            <label>Size:</label>
-            <select>
-                <option>38</option><option>39</option><option>40</option>
-                <option>41</option><option>42</option><option>43</option>
-            </select><br><br>
-
-            <button onclick="addToCart(${p.id})">MUA NGAY</button>
-        </div>
-    `;
-}
-
-function backToList(){
-    document.getElementById("detailPage").style.display="none";
-    document.getElementById("listPage").style.display="block";
-}
-
-// ====== GIỎ HÀNG ======
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-function addToCart(id){
-    const p = products.find(x => x.id === id);
-    const exist = cart.find(i => i.id === id);
-    exist ? exist.qty++ : cart.push({...p, qty:1});
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Đã thêm giỏ!");
-}
-</script>
-
-</body>
+    <!-- JS -->
+    <script src="./js/products.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
 </html>
