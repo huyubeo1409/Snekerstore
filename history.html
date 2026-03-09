@@ -125,7 +125,7 @@
                                 <small>${order.phone || ''}</small>
                             </td>
                             <td>
-                                ${order.items ? order.items.map(i => `<div>• ${i.name} (Size ${i.size || "-"}) (x${i.quantity})</div>`).join('') : ''}
+                                ${order.items ? order.items.map(i => `<div>• ${i.name} (Size ${i.size || "-"}) (x${i.quantity})</div>`).join('') : ''} 
                             </td>
                             <td class="price-tag" style="width: 150px; text-align: right;">${order.totalAmount}</td>
                             <td style="width: 50px; text-align: center;">
