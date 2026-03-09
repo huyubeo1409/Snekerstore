@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .product-detail img {
+            width: 100%;
+            border-radius: 20px;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .price {
+            font-size: 22px;
+            color: red;
+            font-weight: bold;
+        }
+
+        .sizes button {
+            padding: 8px 14px;
+            margin: 5px;
+            border-radius: 8px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        .buy {
+            margin-top: 20px;
+            padding: 14px 30px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .sizes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .sizes button {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #000;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .sizes button:hover {
+            background: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h2>CHI TIẾT SẢN PHẨM</h2>
+
+<div class="product-detail">
+    <img id="productImg">
+
+    <div>
+        <h3 id="productName"></h3>
+        <p id="productDesc"></p>
+        <p class="price" id="productPrice"></p>
+
+       <h4>Chọn size:</h4>
+    <div class="sizes" id="productSizes"></div>
+
+        <button class="buy">THÊM VÀO GIỎ HÀNG</button>
+    </div>
+</div>
+    <script src="./js/products.js"></script>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+const product = products.find(p => p.id == id);
+
+if(product){
+    document.getElementById("productName").innerText = product.name;
+    document.getElementById("productImg").src = product.image;
+    document.getElementById("productPrice").innerText =
+        product.price.toLocaleString("vi-VN") + "đ";
+}
+
+const sizeContainer = document.getElementById("productSizes");
+
+let selectedSize = null;
+
+// nếu không phải phụ kiện thì hiện size
+if(product.category !== "phukien"){
+
+    const sizes = ["UK 3","UK 4","UK 5","UK 6","UK 7","UK 8","UK 9","UK 10","UK 11","UK 12"];
+
+    sizes.forEach(size => {
+
+        const btn = document.createElement("button");
+        btn.innerText = size;
+
+        btn.onclick = () => {
+            selectedSize = size;
+
+            document.querySelectorAll(".sizes button")
+            .forEach(b=>{
+                b.style.background = "white";
+                b.style.color = "black";
+            });
+
+            btn.style.background = "black";
+            btn.style.color = "white";
+        };
+
+        sizeContainer.appendChild(btn);
+
+    });
+
+}else{
+    sizeContainer.style.display = "none";
+}
+
+// thêm vào giỏ hàng
+document.querySelector(".buy").onclick = () => {
+
+    if(product.category !== "phukien" && !selectedSize){
+        alert("Vui lòng chọn size!");
+        return;
+    }
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        size: selectedSize,
+        quantity: 1
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Đã thêm vào giỏ hàng!");
+};
+
+</script>
+</body>
+</html>
